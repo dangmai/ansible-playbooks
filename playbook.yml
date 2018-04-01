@@ -1,5 +1,7 @@
 - hosts: common
   remote_user: root
+  roles:
+  - role: jnv.unattended-upgrades
   vars_prompt:
     - name: user_password
       prompt: "Enter the main user's password"
