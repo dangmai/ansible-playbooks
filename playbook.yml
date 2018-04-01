@@ -1,9 +1,15 @@
 - hosts: common
   remote_user: root
+  vars_prompt:
+    - name: user_password
+      prompt: "Enter the main user's password"
+      private: yes
+      encrypt: md5_crypt
+      confirm: yes
+      salt_size: 7
   tasks:
     - name: test connection
       ping:
-      remote_user: root
 
     - name: install basic packages
       action: >
@@ -14,3 +20,42 @@
         - git
         - zsh
         - curl
+        - wget
+        - htop
+
+    - name: create main user
+      user:
+        name: dangmai
+        password: "{{user_password}}"
+        groups:
+          - sudo
+        state: present
+        shell: /bin/zsh
+        system: no
+        create_home: yes
+        home: /home/dangmai
+
+    - name: install oh-my-zsh
+      become: yes
+      become_user: dangmai
+      command: "{{ item }}"
+      with_items:
+        - curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -o /home/dangmai/ohmyzsh.sh
+        - chmod u+x /home/dangmai/ohmyzsh.sh
+        - sh -c /home/dangmai/ohmyzsh.sh
+        - rm /home/dangmai/ohmyzsh.sh
+        - rm -f /home/dangmai/.zshrc
+
+    - name: checkout dotfiles
+      git:
+        repo: "https://github.com/dangmai/dotfiles"
+        dest: /home/dangmai/Dev/dotfiles
+      become: yes
+      become_user: dangmai
+
+    - name: install dotfiles
+      become: true
+      become_user: dangmai
+      command: "{{ item }} chdir=/home/dangmai/Dev/dotfiles"
+      with_items:
+        - "bash /home/dangmai/Dev/dotfiles/script/bootstrap"
