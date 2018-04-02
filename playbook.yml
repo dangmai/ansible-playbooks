@@ -37,15 +37,23 @@
         create_home: yes
         home: /home/dangmai
 
+    - name: download oh-my-zsh
+      become: yes
+      become_user: dangmai
+      get_url:
+        url: https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh
+        dest: /home/dangmai/ohmyzsh.sh
+        mode: u+x
+
     - name: install oh-my-zsh
       become: yes
       become_user: dangmai
-      command: "{{ item }}"
-      with_items:
-        - curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -o /home/dangmai/ohmyzsh.sh
-        - chmod u+x /home/dangmai/ohmyzsh.sh
-        - sh -c /home/dangmai/ohmyzsh.sh
-        - rm /home/dangmai/ohmyzsh.sh
+      command: "sh -c /home/dangmai/ohmyzsh.sh"
+
+    - name: delete oh-my-zsh install file
+      file:
+        path: /home/dangmai/ohmyzsh.sh
+        state: absent
 
     - name: checkout dotfiles
       git:
