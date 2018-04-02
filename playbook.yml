@@ -46,7 +46,6 @@
         - chmod u+x /home/dangmai/ohmyzsh.sh
         - sh -c /home/dangmai/ohmyzsh.sh
         - rm /home/dangmai/ohmyzsh.sh
-        - rm -f /home/dangmai/.zshrc
 
     - name: checkout dotfiles
       git:
@@ -60,4 +59,4 @@
       become_user: dangmai
       command: "{{ item }} chdir=/home/dangmai/Dev/dotfiles"
       with_items:
-        - "bash /home/dangmai/Dev/dotfiles/script/bootstrap"
+        - bash -c "yes O | bash /home/dangmai/Dev/dotfiles/script/bootstrap"
