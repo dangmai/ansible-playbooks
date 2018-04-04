@@ -68,3 +68,10 @@
       command: "{{ item }} chdir=/home/dangmai/Dev/dotfiles"
       with_items:
         - bash -c "yes O | bash /home/dangmai/Dev/dotfiles/script/bootstrap"
+
+- hosts: docker
+  remote_user: root
+  roles:
+    - role: nickjj.docker
+      docker_users:
+        - dangmai
