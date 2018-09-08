@@ -1,7 +1,10 @@
 - hosts: common
   remote_user: root
+  vars_files:
+    - "vars/{{ ansible_os_family }}.yml"
   roles:
   - role: jnv.unattended-upgrades
+    when: ansible_os_family == "Debian"
   vars_prompt:
     - name: user_password
       prompt: "Enter the main user's password"
@@ -12,6 +15,13 @@
   tasks:
     - name: test connection
       ping:
+
+    - name: install EPEL for Red Hat OSes
+      action: >
+        {{ ansible_pkg_mgr }} name={{ item }} state=present update_cache=yes
+      with_items:
+        - epel-release
+      when: ansible_os_family == "RedHat"
 
     - name: install basic packages
       action: >
@@ -24,13 +34,14 @@
         - curl
         - wget
         - htop
+        - sudo
+        - dirmngr  # Otherwise Docker won't be installed correctly
 
     - name: create main user
       user:
         name: dangmai
         password: "{{user_password}}"
-        groups:
-          - sudo
+        groups: "{{sudo_group}}"
         state: present
         shell: /bin/zsh
         system: no
@@ -75,3 +86,4 @@
     - role: nickjj.docker
       docker_users:
         - dangmai
+      docker_version: "18.03.0"
