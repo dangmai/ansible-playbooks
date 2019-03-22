@@ -87,3 +87,7 @@
       docker_users:
         - dangmai
       docker_version: "18.03.0"
+
+- hosts: rclone
+  roles:
+    - rclone
