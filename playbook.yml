@@ -90,4 +90,4 @@
 
 - hosts: rclone
   roles:
-    - rclone
+    - rclone: stefangweichinger.rclone
