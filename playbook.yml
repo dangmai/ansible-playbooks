@@ -91,3 +91,4 @@
 - hosts: rclone
   roles:
     - role: stefangweichinger.rclone
+  remote_user: root
