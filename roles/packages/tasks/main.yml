@@ -1,0 +1,18 @@
+- name: install EPEL for Red Hat OSes
+  action: >
+    {{ ansible_pkg_mgr }} name=epel-release state=present update_cache=yes
+  when: ansible_os_family == "RedHat"
+
+- name: install basic packages
+  package:
+    name:
+    - vim
+    - tmux
+    - git
+    - zsh
+    - curl
+    - wget
+    - htop
+    - sudo
+    - dirmngr  # Otherwise Docker won't be installed correctly
+    state: present

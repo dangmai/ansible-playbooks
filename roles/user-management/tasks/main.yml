@@ -1,0 +1,53 @@
+- name: Retrieve Jumpcloud User Id based on user name
+  uri:
+    url: "{{ jumpcloud_api_v1_url }}/search/systemusers"
+    method: POST
+    headers:
+      "Content-Type": "application/json"
+      "Accept":       "application/json"
+      "x-api-key":    "{{ jumpcloud_api_key }}"
+    body_format: json
+    body: '{
+        "searchFilter": {
+            "searchTerm": "{{ jumpcloud_main_user }}", "fields": ["username"] },
+        "fields": "id"
+    }'
+    follow_redirects: all
+    return_content: yes
+    status_code: 200
+  delegate_to: localhost
+  register: jc_user_search_json_response
+  when: jumpcloud_system_key is defined
+
+- name: Store Main User Id in variable
+  set_fact:
+    jc_main_user_id: "{{ jc_user_search_json_response.json.results[0].id }}"
+  when: jumpcloud_system_key is defined and jc_user_search_json_response is defined
+  delegate_to: localhost
+
+- name: Associate Main User with created System
+  uri:
+    url: "{{ jumpcloud_api_v2_url }}/systems/{{ jumpcloud_system_key }}/associations"
+    method: POST
+    headers:
+      "Content-Type": "application/json"
+      "Accept":       "application/json"
+      "x-api-key":    "{{ jumpcloud_api_key }}"
+    body_format: json
+    body: '{
+        "op": "add",
+        "type": "user",
+        "id": "{{ jc_main_user_id }}"
+    }'
+    follow_redirects: all
+    return_content: yes
+    status_code:
+      - 204
+      - 409
+  delegate_to: localhost
+  register: jc_user_system_association_json_response
+  when: jumpcloud_system_key is defined and jc_main_user_id is defined
+
+- name: Pause so that Jumpcloud can propagate changes to server
+  pause:
+    seconds: 20

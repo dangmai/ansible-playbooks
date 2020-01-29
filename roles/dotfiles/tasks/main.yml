@@ -1,0 +1,13 @@
+- name: checkout dotfiles
+  git:
+    repo: "https://github.com/dangmai/dotfiles"
+    dest: /home/{{ jumpcloud_main_user }}/Dev/dotfiles
+  become: yes
+  become_user: "{{ jumpcloud_main_user }}"
+
+- name: install dotfiles
+  become: true
+  become_user: "{{ jumpcloud_main_user }}"
+  command: "{{ item }} chdir=/home/{{ jumpcloud_main_user }}/Dev/dotfiles"
+  with_items:
+    - bash -c "yes O | bash /home/{{ jumpcloud_main_user }}/Dev/dotfiles/script/bootstrap"

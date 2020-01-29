@@ -2,92 +2,29 @@
   remote_user: root
   vars_files:
     - "vars/{{ ansible_os_family }}.yml"
+    - "env.yml"
   roles:
+  - role: inviqa.jumpcloud
+  - role: user-management
+  - role: gantsign.oh-my-zsh
+    users:
+      - username: "{{ jumpcloud_main_user }}"
   - role: jnv.unattended-upgrades
     when: ansible_os_family == "Debian"
-  vars_prompt:
-    - name: user_password
-      prompt: "Enter the main user's password"
-      private: yes
-      encrypt: md5_crypt
-      confirm: yes
-      salt_size: 7
-  tasks:
-    - name: test connection
-      ping:
-
-    - name: install EPEL for Red Hat OSes
-      action: >
-        {{ ansible_pkg_mgr }} name={{ item }} state=present update_cache=yes
-      with_items:
-        - epel-release
-      when: ansible_os_family == "RedHat"
-
-    - name: install basic packages
-      action: >
-        {{ ansible_pkg_mgr }} name={{ item }} state=present update_cache=yes
-      with_items:
-        - vim
-        - tmux
-        - git
-        - zsh
-        - curl
-        - wget
-        - htop
-        - sudo
-        - dirmngr  # Otherwise Docker won't be installed correctly
-
-    - name: create main user
-      user:
-        name: dangmai
-        password: "{{user_password}}"
-        groups: "{{sudo_group}}"
-        state: present
-        shell: /bin/zsh
-        system: no
-        create_home: yes
-        home: /home/dangmai
-
-    - name: download oh-my-zsh
-      become: yes
-      become_user: dangmai
-      get_url:
-        url: https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh
-        dest: /home/dangmai/ohmyzsh.sh
-        mode: u+x
-
-    - name: install oh-my-zsh
-      become: yes
-      become_user: dangmai
-      command: "sh -c /home/dangmai/ohmyzsh.sh"
-
-    - name: delete oh-my-zsh install file
-      file:
-        path: /home/dangmai/ohmyzsh.sh
-        state: absent
-
-    - name: checkout dotfiles
-      git:
-        repo: "https://github.com/dangmai/dotfiles"
-        dest: /home/dangmai/Dev/dotfiles
-      become: yes
-      become_user: dangmai
-
-    - name: install dotfiles
-      become: true
-      become_user: dangmai
-      command: "{{ item }} chdir=/home/dangmai/Dev/dotfiles"
-      with_items:
-        - bash -c "yes O | bash /home/dangmai/Dev/dotfiles/script/bootstrap"
+  - role: packages
+  - role: dotfiles
 
 - hosts: docker
   remote_user: root
+  vars_files:
+    - "env.yml"
   roles:
     - role: nickjj.docker
-      docker_users:
-        - dangmai
+      docker__users:
+        - "{{ jumpcloud_main_user }}"
 
 - hosts: rclone
   roles:
     - role: stefangweichinger.rclone
   remote_user: root
+
