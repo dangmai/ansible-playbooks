@@ -19,8 +19,8 @@
   vars_files:
     - "env.yml"
   roles:
-    - role: nickjj.docker
-      docker__users:
+    - role: geerlingguy.docker
+      docker_users:
         - "{{ jumpcloud_main_user }}"
 
 - hosts: rclone

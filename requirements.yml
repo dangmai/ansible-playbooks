@@ -1,5 +1,5 @@
 - src: gantsign.oh-my-zsh
-- src: nickjj.docker
+- src: geerlingguy.docker
 - src: jnv.unattended-upgrades
 - src: stefangweichinger.rclone
 - src: inviqa.jumpcloud
