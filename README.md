@@ -6,18 +6,7 @@ My Ansible playbooks.
 How to run
 ----------
 
-Install `passlib` to encrypt passwords.
-On Ubuntu:
-
-```
-sudo apt install python-passlib
-```
-
-On Arch:
-
-```
-sudo pacman -S python2-passlib
-```
+Copy `.env.sample.yml` to `.env.yml` and update the values inside it.
 
 ```
 ansible-galaxy install -r requirements.yml
