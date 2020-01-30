@@ -14,6 +14,13 @@
   - role: packages
   - role: dotfiles
 
+- hosts: cloud
+  remote_user: root
+  vars_files:
+    - "env.yml"
+  roles:
+  - role: m4rcu5nl.zerotier-one
+
 - hosts: docker
   remote_user: root
   vars_files:
