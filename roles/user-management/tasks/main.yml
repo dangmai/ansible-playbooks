@@ -50,4 +50,4 @@
 
 - name: Pause so that Jumpcloud can propagate changes to server
   pause:
-    seconds: 20
+    seconds: 30
