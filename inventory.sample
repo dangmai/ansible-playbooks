@@ -1,0 +1,17 @@
+[common]
+example.com
+
+[common:vars]
+jumpcloud_x_connect_key=xxxxxx
+jumpcloud_api_key=xxxxxx
+jump_main_user=dangmai
+zerotier_network_id=xxxxx
+
+[cloud]
+example.com
+
+[docker]
+example.com
+
+[rclone]
+example.com

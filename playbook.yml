@@ -2,7 +2,6 @@
   remote_user: root
   vars_files:
     - "vars/{{ ansible_os_family }}.yml"
-    - "env.yml"
   roles:
   - role: inviqa.jumpcloud
   - role: user-management
@@ -16,15 +15,11 @@
 
 - hosts: cloud
   remote_user: root
-  vars_files:
-    - "env.yml"
   roles:
   - role: m4rcu5nl.zerotier-one
 
 - hosts: docker
   remote_user: root
-  vars_files:
-    - "env.yml"
   roles:
     - role: geerlingguy.docker
       docker_users:
