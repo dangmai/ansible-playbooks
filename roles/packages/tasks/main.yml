@@ -14,5 +14,6 @@
     - wget
     - htop
     - sudo
+    - make
     - dirmngr  # Otherwise Docker won't be installed correctly
     state: present
