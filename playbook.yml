@@ -1,5 +1,4 @@
 - hosts: common
-  remote_user: root
   vars_files:
     - "vars/{{ ansible_os_family }}.yml"
   roles:
@@ -14,12 +13,10 @@
   - role: dotfiles
 
 - hosts: cloud
-  remote_user: root
   roles:
   - role: m4rcu5nl.zerotier-one
 
 - hosts: docker
-  become: yes
   roles:
     - role: geerlingguy.docker
       docker_users:
@@ -28,5 +25,4 @@
 - hosts: rclone
   roles:
     - role: stefangweichinger.ansible_rclone
-  remote_user: root
 
