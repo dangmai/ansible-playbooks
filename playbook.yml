@@ -27,6 +27,6 @@
 
 - hosts: rclone
   roles:
-    - role: stefangweichinger.rclone
+    - role: stefangweichinger.ansible_rclone
   remote_user: root
 
