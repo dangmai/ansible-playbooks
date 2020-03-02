@@ -1,6 +1,6 @@
 - src: gantsign.oh-my-zsh
 - src: geerlingguy.docker
 - src: jnv.unattended-upgrades
-- src: stefangweichinger.rclone
+- src: stefangweichinger.ansible_rclone
 - src: inviqa.jumpcloud
 - src: m4rcu5nl.zerotier-one
