@@ -15,3 +15,6 @@ example.com
 
 [rclone]
 example.com
+
+[vm]
+example.com

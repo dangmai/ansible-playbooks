@@ -11,10 +11,11 @@
     when: ansible_os_family == "Debian"
   - role: packages
   - role: dotfiles
-
-- hosts: cloud
-  roles:
   - role: m4rcu5nl.zerotier-one
+
+- hosts: vm
+  roles:
+  - role: sbaerlocher.qemu-guest-agent
 
 - hosts: docker
   roles:

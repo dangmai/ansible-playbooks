@@ -4,3 +4,4 @@
 - src: stefangweichinger.ansible_rclone
 - src: inviqa.jumpcloud
 - src: m4rcu5nl.zerotier-one
+- src: sbaerlocher.qemu-guest-agent
