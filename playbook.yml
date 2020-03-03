@@ -12,6 +12,7 @@
   - role: packages
   - role: dotfiles
   - role: zerotier
+  - role: github-zt-dns
 
 - hosts: vm
   roles:

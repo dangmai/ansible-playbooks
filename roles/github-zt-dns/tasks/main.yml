@@ -1,0 +1,12 @@
+- name: Update Zerotier DNS
+  run_once: true
+  uri:
+    url: https://api.github.com/repos/dangmai/workflows/dispatches
+    method: POST
+    status_code: 204
+    headers:
+      Authorization: "token {{ github_access_token }}"
+      Accept: "Accept: application/vnd.github.everest-preview+json"
+    body_format: json
+    body:
+      event_type: zt-dns-update
