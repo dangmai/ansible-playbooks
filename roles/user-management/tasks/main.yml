@@ -48,6 +48,6 @@
   register: jc_user_system_association_json_response
   when: jumpcloud_system_key is defined and jc_main_user_id is defined
 
-- name: Pause so that Jumpcloud can propagate changes to server
-  pause:
-    seconds: 30
+- name: Wait for home directory to exist (from Jumpcloud propagation)
+  wait_for:
+    path: '/home/{{ jumpcloud_main_user }}'
