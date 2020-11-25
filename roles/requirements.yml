@@ -8,4 +8,4 @@ roles:
   - src: sbaerlocher.qemu-guest-agent
 
 collections:
-  - src: hetzner.hcloud
+  - name: hetzner.hcloud
