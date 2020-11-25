@@ -1,2 +1,1 @@
-[hcloud]
-enable_plugins = hetzner.hcloud.hcloud
+plugin: hcloud
