@@ -1,8 +1,11 @@
-- src: gantsign.oh-my-zsh
-- src: geerlingguy.docker
-- src: jnv.unattended-upgrades
-- src: stefangweichinger.ansible_rclone
-- src: inviqa.jumpcloud
-- src: m4rcu5nl.zerotier-one
-- src: sbaerlocher.qemu-guest-agent
-- src: hetzner.hcloud
+roles:
+  - src: gantsign.oh-my-zsh
+  - src: geerlingguy.docker
+  - src: jnv.unattended-upgrades
+  - src: stefangweichinger.ansible_rclone
+  - src: inviqa.jumpcloud
+  - src: m4rcu5nl.zerotier-one
+  - src: sbaerlocher.qemu-guest-agent
+
+collections:
+  - src: hetzner.hcloud
