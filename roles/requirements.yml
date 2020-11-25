@@ -6,6 +6,3 @@ roles:
   - src: inviqa.jumpcloud
   - src: m4rcu5nl.zerotier-one
   - src: sbaerlocher.qemu-guest-agent
-
-collections:
-  - name: hetzner.hcloud
