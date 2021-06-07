@@ -4,7 +4,8 @@ example.com
 [common:vars]
 jumpcloud_x_connect_key=xxxxxx
 jumpcloud_api_key=xxxxxx
-jump_main_user=dangmai
+jumpcloud_main_user=dangmai
+jumpcloud_use_sudo=yes
 zerotier_network_id=xxxxx
 
 [cloud]
