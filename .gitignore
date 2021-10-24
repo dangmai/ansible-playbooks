@@ -1,2 +1,3 @@
 playbook.retry
 env.yml
+inventory
