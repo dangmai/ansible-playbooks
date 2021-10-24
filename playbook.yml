@@ -13,6 +13,15 @@
     - role: dotfiles
   become: yes
 
+- hosts: proxmox
+  vars_files:
+    - "vars/{{ ansible_os_family }}.yml"
+  roles:
+    - role: jnv.unattended-upgrades
+      when: ansible_os_family == "Debian"
+    - role: packages
+  become: yes
+
 - hosts: vm
   roles:
     - role: sbaerlocher.qemu-guest-agent
