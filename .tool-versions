@@ -1,2 +1,4 @@
+# this is needed because ansible actually uses asdf-pyapp, which has a dependency on Python
+python 3.12.1
 # This special syntax is from asdf-pyapp, explained here: https://github.com/amrox/asdf-pyapp#asdf-python-integration-experimental
 ansible 7.2.0@3.12.1
