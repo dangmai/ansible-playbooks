@@ -1,0 +1,2 @@
+# This special syntax is from asdf-pyapp, explained here: https://github.com/amrox/asdf-pyapp#asdf-python-integration-experimental
+ansible 7.2.0@3.12.1
