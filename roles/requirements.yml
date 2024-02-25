@@ -4,7 +4,8 @@ roles:
   - src: hifis.unattended_upgrades
   - src: stefangweichinger.ansible_rclone
   - src: inviqa.jumpcloud
-  - src: m4rcu5nl.zerotier-one
+  # We basically cloned this repo under roles/zerotier
+  # - src: m4rcu5nl.zerotier-one
   - src: sbaerlocher.qemu-guest-agent
 
 collections:
